@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+    <h1>Super Sprinter 3000</h1>
+
+    <a href="/story">Add new User Story</a>
+
+    <table cellpadding="20">
+        <tr align="center">
+            {% for title in titles %}
+                <strong>
+                    <th height="20px"><h2>{{ title }}</h2></th>
+                </strong>
+            {% endfor %}
+        </tr>
+
+        {% for line in elements %}
+            <tr align="center">
+                {% for elt in line %}
+                    <strong>
+                        {% if line.index(elt) == 1 %}
+                            <td><a href="/story/{{ elt }}">{{ elt }}</a></td>
+                        {% else %}
+                            <td>{{ elt }}</td>
+                        {% endif %}
+                    </strong>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}
