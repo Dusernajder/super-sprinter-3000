@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block body %}
 
     <h1>Super Sprinter 3000</h1>
@@ -9,27 +8,24 @@
 
     <table cellpadding="20">
         <tr align="center">
-            {% for title in titles %}
+            {% for header in headers %}
                 <strong>
-                    <th height="20px"><h2>{{ title }}</h2></th>
+                    <th height="20px"><h2>{{ header }}</h2></th>
                 </strong>
             {% endfor %}
         </tr>
 
-        {% for line in elements %}
+        {% for elt in data %}
             <tr align="center">
-                {% for elt in line %}
-                    <strong>
-                        {% if line.index(elt) == 1 %}
-                            <td><a href="/story/{{ elt }}">{{ elt }}</a></td>
-                        {% else %}
-                            <td>{{ elt }}</td>
-                        {% endif %}
-                    </strong>
+                {% for key, value in elt.items() %}
+                    {% if key == 'title' %}
+                        <td><a href="/story">{{ value }}</a></td>
+                    {% else %}
+                        <td>{{ value }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         {% endfor %}
-
     </table>
 
 {% endblock %}
