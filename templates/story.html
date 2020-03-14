@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <h1>Add User Story</h1>
+
+    <small><a href="/">home page</a></small>
+    <form method="post">
+        <div>
+            <br>
+            <label>Story Title:</label><br>
+            <input type="text" name="title">
+        </div>
+
+        <div>
+            <br>
+            <label>User Story:</label><br>
+            <textarea name="story" rows="6" cols="60"></textarea>
+        </div>
+
+        <div>
+            <br>
+            <label>Acceptance Criteria:</label><br>
+            <textarea name="acceptance_criteria" rows="10" cols="60"></textarea>
+        </div>
+
+        <div>
+            <br>
+            <label>Business value:</label><br>
+            <input type="number" name="business_value">
+        </div>
+
+        <div>
+            <br>
+            <label>Extimation:</label><br>
+            <input type="number" name="estimation">
+        </div>
+
+        <div>
+            <br>
+            <label>Status:</label><br>
+            <select name="status">
+                <option>planning</option>
+                <option>todo</option>
+                <option>in progress</option>
+                <option>review</option>
+                <option>done</option>
+            </select>
+        </div>
+
+        <div>
+            <br>
+            <button type="submit">Add new User Story</button>
+        </div>
+    </form>
+{% endblock %}
