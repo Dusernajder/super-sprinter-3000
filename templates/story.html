@@ -1,55 +1,87 @@
 {% extends 'base.html' %}
 
+{% block head %}
+    <style>
+        div {
+            padding-bottom: 40px;
+        }
+    </style>
+{% endblock %}
+
+
 {% block body %}
 
+    <p></p>
     <h1>Add User Story</h1>
 
-    <small><a href="/">home page</a></small>
+    <!-- Testing purposes -->
+    <div>
+        <small><a href="/">home page</a></small>
+    </div>
+
     <form method="post">
         <div>
-            <br>
             <label>Story Title:</label><br>
-            <input type="text" name="title">
+            <input type="text" name="title"
+                   value="
+                        {%- if data is defined -%}
+                            {{ data.get('title') }}
+                        {%- endif -%}
+                   ">
         </div>
 
         <div>
-            <br>
             <label>User Story:</label><br>
-            <textarea name="story" rows="6" cols="60"></textarea>
+            <textarea name="story" rows="6" cols="60">
+                {%- if data is defined -%}
+                    {{ data.get('user_story') }}
+                {%- endif -%}
+            </textarea>
         </div>
 
         <div>
-            <br>
             <label>Acceptance Criteria:</label><br>
-            <textarea name="acceptance_criteria" rows="10" cols="60"></textarea>
+            <textarea name="acceptance_criteria" rows="10" cols="60">
+                {%- if data is defined -%}
+                    {{ data.get('acceptance_criteria') }}
+                {%- endif -%}
+            </textarea>
         </div>
 
         <div>
-            <br>
             <label>Business value:</label><br>
-            <input type="number" name="business_value">
+            <input type="number" name="business_value"
+                   value="
+                        {%- if data is defined -%}
+                            {{ data.get('business_value') }}
+                        {%- endif -%}
+                   ">
         </div>
 
         <div>
-            <br>
-            <label>Extimation:</label><br>
-            <input type="number" name="estimation">
+            <label>Estimation:</label><br>
+            <input type="number" name="estimation"
+                   value="
+                        {%- if data is defined -%}
+                            {{ data.get('estimation') }}
+                        {%- endif -%}
+                   ">
         </div>
 
-        <div>
-            <br>
-            <label>Status:</label><br>
-            <select name="status">
-                <option>planning</option>
-                <option>todo</option>
-                <option>in progress</option>
-                <option>review</option>
-                <option>done</option>
-            </select>
-        </div>
+        {%- if data is defined -%}
+            <div>
+                <label>Status:</label><br>
+                <select name="status">
+                    <option>planning</option>
+                    <option>todo</option>
+                    <option>in progress</option>
+                    <option>review</option>
+                    <option>done</option>
+                </select>
+            </div>
+        {%- endif -%}
 
         <div>
-            <br>
             <button type="submit">Add new User Story</button>
         </div>
     </form>
