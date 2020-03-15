@@ -4,6 +4,7 @@ import os
 DATA_FILE_PATH = os.getenv('DATA_FILE_PATH') if 'DATA_FILE_PATH' in os.environ else 'data.csv'
 DATA_HEADER = ['id', 'title', 'user_story', 'acceptance_criteria', 'business_value', 'estimation', 'status']
 STATUSES = ['planning', 'todo', 'in progress', 'review', 'done']
+CSV_LENGTH = sum(1 for row in csv.reader('data.csv'))
 
 
 def read_elements_csv():
@@ -16,7 +17,8 @@ def read_elements_csv():
         return temp_lst
 
 
-def add_element_csv(row, index=len(read_elements_csv())):
+def add_element_csv(row, index=CSV_LENGTH):
+    print(index)
     temp_lst = insert_element_csv(row, index)
 
     with open(DATA_FILE_PATH, 'w') as file:
@@ -29,7 +31,11 @@ def insert_element_csv(row, index):
     temp_lst = read_elements_csv()
     zip_row = zip(temp_lst[0].keys(), row)
     dict_row = dict((key, value) for key, value in zip_row)
-    temp_lst[index] = dict_row
+    print(dict_row)
+    if index == CSV_LENGTH:
+        temp_lst.append(dict_row)
+    else:
+        temp_lst[index] = dict_row
     return temp_lst
 
 
@@ -40,5 +46,4 @@ def get_id():
 def get_element_by_id(user_id):
     for elt in read_elements_csv():
         if elt['id'] == str(user_id):
-            # print(elt)
             return elt

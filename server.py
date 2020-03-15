@@ -9,6 +9,16 @@ app.jinja_env.trim_blocks = True
 headers = [' '.join(header.split("_")) for header in data_handler.DATA_HEADER]
 data = {}
 
+def read_form():
+    user_id = data_handler.get_id()
+    title = request.form['title']
+    user_story = request.form['story']
+    acceptance_criteria = request.form['acceptance_criteria']
+    business_value = request.form['business_value']
+    estimation = request.form['estimation']
+
+    return user_id, title, user_story, acceptance_criteria, business_value, estimation
+
 
 @app.route('/')
 def home():
@@ -19,14 +29,8 @@ def home():
 @app.route('/story', methods=['GET', 'POST'])
 def story():
     if request.method == 'POST':
-        title = request.form['title']
-        user_story = request.form['story']
-        acceptance_criteria = request.form['acceptance_criteria']
-        business_value = request.form['business_value']
-        estimation = request.form['estimation']
-        user_id = data_handler.get_id()
 
-        row = [user_id, title, user_story, acceptance_criteria, business_value, estimation]
+        row = read_form()
         data_handler.add_element_csv(row)
 
         return redirect('/')
