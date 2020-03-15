@@ -6,7 +6,7 @@
 
     <a href="/story">Add new User Story</a>
 
-    <table cellpadding="20">
+    <table cellpadding="15">
         <tr align="center">
             {% for header in headers %}
                 <strong>
@@ -15,11 +15,15 @@
             {% endfor %}
         </tr>
 
-        {% for elt in data %}
+        {% for row in data %}
             <tr align="center">
-                {% for key, value in elt.items() %}
+                {% for key, value in row.items() %}
                     {% if key == 'title' %}
-                        <td><a href="/story">{{ value }}</a></td>
+                        <td><a href="/story/{{ row.get('id') }}">{{ value }}</a></td>
+                    {% elif key == 'business_value' %}
+                        <td>{{ value }} point</td>
+                    {% elif key == 'estimation' %}
+                        <td>{{ value }} h</td>
                     {% else %}
                         <td>{{ value }}</td>
                     {% endif %}
