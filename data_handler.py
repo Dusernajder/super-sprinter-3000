@@ -6,7 +6,7 @@ DATA_HEADER = ['id', 'title', 'user_story', 'acceptance_criteria', 'business_val
 STATUSES = ['planning', 'todo', 'in progress', 'review', 'done']
 
 
-def get_elements_csv():
+def read_elements_csv():
     temp_lst = []
     with open(DATA_FILE_PATH) as file:
         csv_reader = csv.reader(file)
@@ -16,11 +16,29 @@ def get_elements_csv():
         return temp_lst
 
 
-def add_element_csv(row):
-    with open(DATA_FILE_PATH, 'a') as file:
+def add_element_csv(row, index=len(read_elements_csv())):
+    temp_lst = insert_element_csv(row, index)
+
+    with open(DATA_FILE_PATH, 'w') as file:
         csv_writer = csv.writer(file)
-        csv_writer.writerow(row)
+        for line in temp_lst:
+            csv_writer.writerow(line.values())
+
+
+def insert_element_csv(row, index):
+    temp_lst = read_elements_csv()
+    zip_row = zip(temp_lst[0].keys(), row)
+    dict_row = dict((key, value) for key, value in zip_row)
+    temp_lst[index] = dict_row
+    return temp_lst
 
 
 def get_id():
-    return len(get_elements_csv())
+    return len(read_elements_csv())
+
+
+def get_element_by_id(user_id):
+    for elt in read_elements_csv():
+        if elt['id'] == str(user_id):
+            # print(elt)
+            return elt
